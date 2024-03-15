@@ -1,5 +1,5 @@
 # gsgcms
-Google Sheet Github Communittee Management System (GSGCMS)
+Google Sheet Github Community Management System (GSGCMS)
 
 A simple Google Form, Google Sheet, and GitHub issue system for managing anything "inbound" as a GitHub issue.
 
