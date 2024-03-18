@@ -5,20 +5,28 @@ var REPO_NAME = '';
 function createGitHubIssue(e) {
   var formResponse = e.namedValues;
   
+  // Define the order of fields in the form
+  var fieldOrder = [
+    'Name/Handle',
+    'Discord Handle',
+    'Email',
+    'Project Name',
+    'Project Description',
+    'Links to Project'
+  ];
+
   // Combine responses from Name/Handle and Project Name for the title.
   var handle = formResponse['Name/Handle'][0];
   var project = formResponse['Project Name'][0];
   var issueTitle = "Handle: " + handle + ", Project: " + project;
 
-  // Building the body by iterating over all form questions and their responses.
+  // Building the body by iterating over the defined order of fields.
   var issueBody = "";
-  for (var question in formResponse) {
-    if (formResponse.hasOwnProperty(question)) {
-      // Append each question and response to the issue body, separated by new lines.
-      // Noticed these populate the issue out of order, I'll debug that later.
-      issueBody += question + ": " + formResponse[question][0] + "\n\n";
+  fieldOrder.forEach(function(field) {
+    if (formResponse.hasOwnProperty(field)) {
+      issueBody += field + ": " + formResponse[field][0] + "\n\n";
     }
-  }
+  });
 
   // Building the GitHub API request for creating an issue.
   var url = 'https://api.github.com/repos/' + USER_NAME + '/' + REPO_NAME + '/issues';
